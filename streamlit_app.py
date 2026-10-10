@@ -100,7 +100,14 @@ def reasons_chart(reasons: list[dict]) -> go.Figure:
             hovertemplate="%{y}<br>push towards fraud: %{x:.2f} log-odds<extra></extra>",
         )
     )
-    return tidy(fig, height=60 + 38 * len(reasons), xaxis_title="Push towards fraud (log-odds)", bargap=0.45)
+    longest = max(max(r["contribution"] for r in reasons), 0.01)
+    return tidy(
+        fig,
+        height=60 + 38 * len(reasons),
+        xaxis_title="Push towards fraud (log-odds)",
+        xaxis_range=[0, 1.2 * longest],  # room for the value label at the end of the longest bar
+        bargap=0.45,
+    )
 
 
 def show_alert_body(alert: dict, key: str) -> None:
@@ -168,7 +175,7 @@ def tab_queue(metrics: dict, analyst: str, reveal: bool) -> None:
     if statuses:
         table = table[table["status"].str.split().str[1].isin(statuses)]
 
-    left, right = st.columns([1.25, 1], gap="large")
+    left, right = st.columns([1.45, 1], gap="large")
     with left:
         st.subheader("Today's alert queue")
         event = st.dataframe(
@@ -180,14 +187,15 @@ def tab_queue(metrics: dict, analyst: str, reveal: bool) -> None:
             selection_mode="single-row",
             key="queue_table",
             column_config={
-                "rank": st.column_config.NumberColumn("#", width="small"),
-                "txn_id": st.column_config.NumberColumn("Transaction", format="%d"),
-                "time": "Time",
-                "amount_eur": st.column_config.NumberColumn("Amount (EUR)", format="%.2f"),
-                "risk_score": st.column_config.ProgressColumn("Risk score", min_value=0, max_value=1, format="%.3f"),
-                "band": "Band",
-                "status": "Status",
-                "actual": "Actual (hidden from analysts)",
+                # Fixed pixel widths so Band and Status stay readable without scrolling sideways.
+                "rank": st.column_config.NumberColumn("#", width=45),
+                "txn_id": st.column_config.NumberColumn("Transaction", format="%d", width=90),
+                "time": st.column_config.TextColumn("Time", width=60),
+                "amount_eur": st.column_config.NumberColumn("EUR", format="%.2f", width=80),
+                "risk_score": st.column_config.ProgressColumn("Risk score", min_value=0, max_value=1, format="%.3f", width=135),
+                "band": st.column_config.TextColumn("Band", width=120),
+                "status": st.column_config.TextColumn("Status", width=190),
+                "actual": st.column_config.TextColumn("Actual (hidden from analysts)", width=110),
             },
         )
         st.caption("Select a row to open the case. Actions are drafts until an analyst approves them.")

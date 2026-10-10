@@ -16,7 +16,7 @@ On a day the model had never seen, **154 of its 200 alerts were real fraud**. Re
 
 ![FraudLens alert queue](docs/screenshots/app_queue.png)
 
-**Live app:** add the Streamlit Community Cloud link here after deploying (steps under [Setup](#setup-and-installation-instructions)).
+**Live app:** https://fraudlens-triage.streamlit.app/
 **Solution document:** [docs/FraudLens_Solution_Document.docx](docs/FraudLens_Solution_Document.docx) · **Pitch deck:** [docs/FraudLens_Pitch.pptx](docs/FraudLens_Pitch.pptx) · **Alert queue artefact:** [outputs/alert_queue_top200.csv](outputs/alert_queue_top200.csv)
 
 ---
