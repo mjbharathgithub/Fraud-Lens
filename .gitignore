@@ -1,0 +1,14 @@
+# data and experiment stores are rebuilt by `python -m fraudlens all`
+data/raw/
+mlflow.db
+mlartifacts/
+mlruns/
+outputs/cases.db
+
+__pycache__/
+*.pyc
+.pytest_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+.venv/
+.streamlit/secrets.toml

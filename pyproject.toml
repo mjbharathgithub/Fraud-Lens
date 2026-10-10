@@ -1,0 +1,18 @@
+[project]
+name = "fraudlens"
+version = "1.0.0"
+description = "Capacity-aware triage of card transactions for fraud analysts"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 140
+target-version = "py312"
+extend-exclude = ["notebooks"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+ignore = ["E501"]

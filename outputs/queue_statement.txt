@@ -1,0 +1,1 @@
+Of 200 alerts, 154 are real fraud (precision 77%, 95% range 66-85%). The queue catches 77% of the day's 201 frauds (95% range 71-82%) and 63% of the fraud value (EUR 16,428 of EUR 26,122).
